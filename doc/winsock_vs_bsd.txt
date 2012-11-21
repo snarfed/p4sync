@@ -1,0 +1,96 @@
+Differences between WinSock and BSD sockets
+-------------------------------------------
+Ryan Barrett (p4sync@ryanb.org), 4/10/2003
+
+
+
+This document is based off of these pages:
+
+"Winsock's Compatibility with BSD Sockets", by Warren Young
+http://tangentsoft.net/wskfaq/articles/bsd-compatibility.html
+
+"Differences between Windows sockets and BSD sockets"
+http://www.contactor.se/~dast/stuff/byothers/winbsddiff.txt
+
+Also see the MSDN Article "Deviation from Berkeley Sockets" in the Winsock spec.
+
+---
+
+    WSAStartup()
+
+Winsock:
+must call WSAStartup() first and WSACleanup last. eg:
+
+	WSADATA wsaData;   // if this doesn't work
+    //WSAData wsaData; // then try this instead
+
+    if (WSAStartup(MAKEWORD(1, 1), &wsaData) != 0) {
+        cerr << "WSAStartup failed." << endl;
+		goto failed_init;
+    }
+
+BSD:
+don't have to do anything first.
+
+
+
+
+    #include
+
+Winsock:
+#include <winsock.h> (or maybe <winsock2.h>)
+
+BSD:
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+
+
+
+
+    closing sockets
+
+Winsock:
+closesocket(socket)
+
+BSD:
+close(socket)
+
+
+
+
+    read/write
+
+Winsock:
+must use recv and send.
+
+BSD:
+sockets are file descriptors, so you can use read/write.
+
+
+
+
+    INADDR_NONE
+
+Winsock:
+it's defined.
+
+BSD:
+some platforms (e.g. Solaris) don't define it. #define it to -1.
+
+
+
+
+    sizeof
+
+This isn't really a socket-specific thing, but...
+
+Windows:
+sizeof returns int.
+
+BSD:
+sizeof returns uint.
+
+

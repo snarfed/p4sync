@@ -1,0 +1,65 @@
+##
+## p4sync common Makefile configuration stuff
+##
+
+VERSION = 0.1
+PKGNAME = p4sync-$(VERSION)
+OS = $(shell uname -s)
+
+PREFIX = /usr/local
+
+BINDIR = $(PREFIX)/bin
+LIBDIR = $(PREFIX)/lib
+INCLUDEDIR = $(PREFIX)/include
+DOCDIR = $(PREFIX)/doc/$(PKGNAME)
+
+DEBUGFLAGS = -fPIC -g -Wall 
+OPTFLAGS = -fpic -Os -s -fomit-frame-pointer
+CPPFLAGS := -I. $(DEBUGFLAGS) -DVERSION=\"$(VERSION)\"
+LDFLAGS :=
+CPP = g++
+
+# Solaris needs to link against extra libraries. also, on Solaris,
+# /usr/include/stream.h redefines queue (an STL type). so, -D_SYS_STREAM_H is a
+# hack to prevent stream.h from being included.
+ifeq ($(OS),Solaris)
+  CPPFLAGS := $(CPPFLAGS) -D_SYS_STREAM_H
+  LDFLAGS := $(LDFLAGS) -lsocket -lresolv
+endif
+ifeq ($(OS),SunOS)
+  CPPFLAGS := $(CPPFLAGS) -D_SYS_STREAM_H
+  LDFLAGS := $(LDFLAGS) -lsocket -lresolv
+endif
+
+# Mac OS X doesn't have libnsl or librt; it complains if you link with them
+ifneq ($(OS),Darwin)
+  LDFLAGS := $(LDFLAGS) -lnsl -lrt 
+endif
+
+# empty first rule so that it's the "default goal"
+default::
+
+clean::
+	rm -f *.o *.a *.so *.lo *.la a.out core Makefile.dependencies
+
+install:: default
+	if [ ! -d $(BINDIR) ]; then mkdir -p $(BINDIR); fi
+	if [ ! -d $(LIBDIR) ]; then mkdir -p $(LIBDIR); fi
+	if [ ! -d $(INCLUDEDIR) ]; then mkdir -p $(INCLUDEDIR); fi
+	if [ ! -d $(DOCDIR) ]; then mkdir -p $(DOCDIR); fi
+
+
+# The dependencies below make use of make's default rules, under which a .o
+# automatically depends on its .cpp and the action taken uses the $(CPP) and
+# $(CPPFLAGS) variables. These lines describe a few extra dependencies
+# involved.
+
+depend:: Makefile.dependencies $(SRCS)
+
+Makefile.dependencies:: $(SRCS)
+	$(CPP) $(CPPFLAGS) -MM $(SRCS) > Makefile.dependencies
+
+-include Makefile.dependencies
+
+TAGS : $(SRCS)
+	etags -t $(SRCS)

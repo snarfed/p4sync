@@ -1,0 +1,20 @@
+- existing solutions, BASS and whatever the other one was, are both unusable 
+
+- one hard problem: synchronization. one good idea: cheat! (with ntp)
+
+- vast majority of projects at sf, freshmeat, codecon, are big, ambitious
+infrastructure projects. it's not clear that this is a good thing.
+
+1) infrastructure's users are developers. stand-alone apps' users are normal
+people. there are a lot fewer of us than of normal people!
+
+2) infrastructure requires months of third-party developer effort, on average,
+to use. apps require d/ling and using - say, half an hour.
+
+3) it's rare that any existing problem is entirely solved by a new piece of
+infrastructure. they don't solve single problems as much as they *partially*
+solve a class of problems. who wants partial solutions?
+
+there's lots of infrastructure out there. i know it's more fun to build, but at
+the end of the day,  consider using *existing* infrastructure, or
+extending it if absolutely necessary, and writing stand-alone apps!

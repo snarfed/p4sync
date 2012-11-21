@@ -1,0 +1,3 @@
+[submodule "libmsntp"]
+	path = libmsntp
+	url = git@github.com:snarfed/libmsntp.git

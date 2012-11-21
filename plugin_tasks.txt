@@ -1,0 +1,17 @@
+Writing a p4sync plugin for a new player? Great! Here's what you need to do.
+
+- subclass cplayer and implement the abstract methods. also implement the
+  static method cplayer::instance() to return an instance of your subclass.
+
+- write a UI that lets the user choose whether to be a server or a client. if
+  server, let them specify the port; if client, let them specify server
+  hostname and port to connect to. when they say OK or Apply, store these in
+  the sync_to_host, sync_to_port, and server_port settings. also, if the plugin
+  is currently enabled, and bounce it by calling plugin_disabled() and
+  plugin_enabled().
+
+- use these settings: server_port, sync_to_host, sync_to_port, run_server,
+  sync_freq_ms, serve_freq_ms.
+
+- when the plugin is enabled call cplayer::plugin_enabled(); when it's
+  disabled, call cplayer::plugin_disabled.

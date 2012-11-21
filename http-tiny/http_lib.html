@@ -1,0 +1,320 @@
+<HTML>
+<HEAD>
+<TITLE>http_lib(3) manual page</TITLE>
+</HEAD>
+<BODY>
+<A HREF="#toc">Table of Contents</A><P>
+
+<H2><A NAME="sect1" HREF="#toc1">NAME</A></H2>
+
+http_server, http_port, http_put, http_get, http_head, http_delete,
+http_parse_url - Http data exchanges mini library.
+<P>
+
+<H2><A NAME="sect2" HREF="#toc2"><B>SYNOPSIS</B></A></H2>
+
+<B>#include</B> <B>&quot;http_lib.h"</B>
+<P>
+<B>extern</B> <B>char</B> <B>*http_server;</B>
+<P>
+<B>extern</B> <B>int</B> <B>http_port;</B>
+<P>
+<B>extern</B> <B>char</B> <B>*http_proxy_server;</B>
+<P>
+<B>extern</B> <B>int</B> <B>http_proxy_port;</B>
+<P>
+<B>http_retcode</B> <B>http_put</B><BR>
+
+<B>(</B><BR>
+
+<B>char</B> <B>*filename,</B><BR>
+
+<B>char</B> <B>*data,</B><BR>
+
+<B>int</B> <B>length,</B><BR>
+
+<B>int</B> <B>overwrite,</B><BR>
+
+<B>char</B> <B>*type</B><BR>
+
+<B>);</B>
+<P>
+<B>http_retcode</B> <B>http_get</B><BR>
+
+<B>(</B><BR>
+
+<B>char</B> <B>*filename,</B><BR>
+
+<B>char</B> <B>**pdata,</B><BR>
+
+<B>int</B> <B>*plength,</B><BR>
+
+<B>char</B> <B>*typebuf</B><BR>
+
+<B>);</B>
+<P>
+<B>http_retcode</B> <B>http_head</B><BR>
+
+<B>(</B><BR>
+
+<B>char</B> <B>*filename,</B><BR>
+
+<B>int</B> <B>*plength,</B><BR>
+
+<B>char</B> <B>*typebuf</B><BR>
+
+<B>);</B>
+<P>
+<B>http_retcode</B> <B>http_delete(char</B> <B>*filename);</B>
+<P>
+<B>http_retcode</B> <B>http_parse_url</B><BR>
+
+<B>(</B><BR>
+
+<B>char</B> <B>*url,</B><BR>
+
+<B>char</B> <B>**pfilename</B><BR>
+
+<B>);</B>
+<P>
+
+<H2><A NAME="sect3" HREF="#toc3"><B>PARAMETERS</B></A></H2>
+
+<B>char</B> <B>*filename</B> (http_put)<BR>
+
+Name of the ressource to create.
+<P>
+<B>char</B> <B>*data</B><BR>
+
+Pointer to the data to send.
+<P>
+<B>int</B> <B>length</B><BR>
+
+Length of the data to send.
+<P>
+<B>int</B> <B>overwrite</B><BR>
+
+Flag to request to overwrite the ressource if it was already
+existing.
+<P>
+<B>char</B> <B>*type</B><BR>
+
+Type of the data, if NULL default type is used.
+<P>
+<B>char</B> <B>*filename</B> (http_get)<BR>
+
+Name of the ressource to read.
+<P>
+<B>char</B> <B>**pdata</B><BR>
+
+Address of a pointer variable which will be set to point toward
+allocated memory containing read data.
+<P>
+<DL>
+<DT><B>int</B> <B>*plength</B> <DD>(http_get)
+Address of integer variable which will be set to length of the
+read data.
+<P>
+</DD>
+</DL>
+<B>char</B> <B>*typebuf</B> (http_get)<BR>
+
+Allocated buffer where the read data type is returned. If NULL,
+the type is not returned.
+<P>
+<DL>
+<DT><B>int</B> <B>*plength</B> <DD>(http_head)
+Address of integer variable which will be set to length of the
+data.
+<P>
+</DD>
+</DL>
+<B>char</B> <B>*typebuf</B> (http_head)<BR>
+
+Allocated buffer where the data type is returned. If NULL, the
+type is not returned.
+<P>
+<B>char</B> <B>*url</B><BR>
+
+Writeable copy of an url.
+<P>
+<B>char</B> <B>**pfilename</B><BR>
+
+Address of a pointer that will be filled with allocated filename
+the pointer must be equal to NULL before calling or it will be
+automatically freed (<i>free(3)</i>).
+<P>
+
+<H2><A NAME="sect4" HREF="#toc4"><B>DESCRIPTION</B></A></H2>
+
+<B>http_server</B><BR>
+
+Pointer to a mallocated string containing server name or NULL.
+<P>
+<B>http_port</B><BR>
+
+Server port number.
+<P>
+<B>http_proxy_server</B><BR>
+
+Pointer a string containing proxy server name to use or NULL for noproxy.
+<P>
+<B>http_port</B><BR>
+
+Proxy server port number (or 0).
+<P>
+<B>http_put</B><BR>
+
+Put data on the server<BR>
+
+<P>
+This function sends data to the http data server. The data will be
+stored under the ressource name filename.
+<P>
+<B>http_get</B><BR>
+
+Get data from the server
+<P>
+This function gets data from the http data server. The data is read
+from the ressource named filename. Address of new new allocated
+memory block is filled in pdata whose length is returned via plength.
+<P>
+<B>http_head</B><BR>
+
+Request the header
+<P>
+This function outputs the header of thehttp data server. The header
+is from the ressource named filename. The length and type of data is
+eventually returned (like for http_get(3)).
+<P>
+<B>http_delete</B><BR>
+
+Delete data on the server
+<P>
+This function request a DELETE on the http data server.
+<P>
+<B>http_parse_url</B><BR>
+
+Parses an url : setting the http_server and http_port global variables
+and returning the filename to pass to http_get/put/...
+<P>
+
+<H2><A NAME="sect5" HREF="#toc5"><B>RETURNS</B></A></H2>
+
+<B>http_put</B><BR>
+
+A negative error code or a positive code from the server.
+<p>
+
+<B>http_get</B><BR>
+
+A negative error code or a positive code from the server.
+<P>
+<B>http_head</B><BR>
+
+A negative error code or a positive code from the server.
+<P>
+<B>http_delete</B><BR>
+
+A negative error code or a positive code from the server.
+<P>
+<B>http_parse_url</B><BR>
+
+A negative error code or 0 if sucessfully parsed.
+<P>
+Possible values for a <B>http_retcode</B> are as follows:
+<P>
+Client side errors.<BR>
+
+<B>ERRHOST</B> No such host.<BR>
+
+<B>ERRSOCK</B> Can't create socket.<BR>
+
+<B>ERRCONN</B> Can't connect to host.<BR>
+
+<B>ERRWRHD</B> Write error on socket while writing header.
+<B>ERRWRDT</B> Write error on socket while writing data.
+<B>ERRRDHD</B> Read error on socket while reading result.
+<B>ERRPAHD</B> Invalid answer from data server.
+<B>ERRNULL</B> Null data pointer.<BR>
+
+<B>ERRNOLG</B> No/Bad length in header.<BR>
+
+<DL>
+<DT><B>ERRMEM</B> <DD>Can't allocate memory.
+<B>ERRRDDT</B> Read error while reading data.
+<B>ERRURLH</B> Invalid url - must start with `http://'.
+<B>ERRURLP</B> Invalid port in url.
+<P>
+</DD>
+</DL>
+Return code by the server.<BR>
+
+<DL>
+<DT><B>ERR400</B> <DD>Invalid query.
+<B>ERR403</B> Forbidden.
+</DD>
+</DL>
+<DL>
+<DT><B>ERR408</B> <DD>Request timeout.
+</DD>
+</DL>
+<DL>
+<DT><B>ERR500</B> <DD>Server error.
+</DD>
+</DL>
+<DL>
+<DT><B>ERR501</B> <DD>Not implemented.
+</DD>
+</DL>
+<DL>
+<DT><B>ERR503</B> <DD>Service overloaded.
+<P>
+</DD>
+</DL>
+Succesful results.<BR>
+
+<DL>
+<DT><B>OK0</B> <DD>     Successfull parse.
+</DD>
+</DL>
+<DL>
+<DT><B>OK201</B> <DD>   Ressource succesfully created.
+</DD>
+</DL>
+<DL>
+<DT><B>OK200</B> <DD>   Ressource succesfully read.
+<P>
+</DD>
+</DL>
+
+<H2><A NAME="sect6" HREF="#toc6"><B>LIMITATIONS</B></A></H2>
+
+<B>http_put</B><BR>
+
+Filename is truncated to first 256 characters and type to 64.
+<P>
+<B>http_get</B><BR>
+
+Filename is truncated to first 256 characters.
+<P>
+<B>http_head</B><BR>
+
+Filename is truncated to first 256 characters.
+<P>
+<B>http_delete</B><BR>
+
+Filename is truncated to first 256 characters.
+<P>
+
+<HR><P>
+<A NAME="toc"><B>Table of Contents</B></A><P>
+<UL>
+<LI><A NAME="toc0" HREF="#sect0">NAME</A></LI>
+<LI><A NAME="toc1" HREF="#sect1">SYNOPSIS</A></LI>
+<LI><A NAME="toc2" HREF="#sect2">PARAMETERS</A></LI>
+<LI><A NAME="toc3" HREF="#sect3">DESCRIPTION</A></LI>
+<LI><A NAME="toc4" HREF="#sect4">RETURNS</A></LI>
+<LI><A NAME="toc5" HREF="#sect5">LIMITATIONS</A></LI>
+</UL>
+</BODY></HTML>

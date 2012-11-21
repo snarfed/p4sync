@@ -1,0 +1,74 @@
+HTTP LIBRARY RESEARCH
+---------------------
+see this link for a good comparison of most of these servers:
+http://www.acme.com/software/thttpd/benchmarks.html
+
+
+
+LIBRARIES
+---------
+libwebserver - single library
+http://libwebserver.sourceforge.net/
+
+
+pthrlib - more of a toolkit, lots of loosely connected pieces, might be good
+http://www.annexia.org/freeware/pthrlib/index.msp
+
+
+libnhttp - hasn't released any files :/
+http://sourceforge.net/projects/libnhttpd/
+
+
+nanohttpd - also hasn't released files, but you can get them from CVS
+http://nanohttpd.sourceforge.net/
+
+
+
+SERVERS
+-------
+iki-httpd - *very* small, only one file!!! ANSI C
+http://www.iki.fi/iki/src/httpd.c
+
+
+veppiserveri - toy web server, not sure about windoze
+http://veppiserveri.sourceforge.net/
+
+
+tinyhttpd - small, runs cgi; can't build easily on windoze
+http://sourceforge.net/projects/tinyhttpd/
+
+
+nullhttpd - looks anemic and not well maintained; threaded
+http://sourceforge.net/projects/nullhttpd/
+
+
+thttpd - small, fast, simple, secure/robust
+http://www.acme.com/software/thttpd/
+
+
+boa - small, fast, secure, *single-threaded*; aimed at embedded systems
+http://www.boa.org
+
+
+mathopd - small, fast, handles large # of incoming conns
+http://www.mathopd.org/
+
+
+NCSA's httpd - big, old, standards-basedunsupported
+http://hoohoo.ncsa.uiuc.edu/
+
+
+CERN's standards-based, big, old
+http://www.w3.org/pub/WWW/Daemon/Status.html
+
+
+WN - big, feature-rich
+http://hopf.math.nwu.edu/
+
+
+anti-web httpd - small
+http://www.hcsw.org/awhttpd/
+
+
+abyss - full http/1.1 compliance, small, portable, ANSI C
+http://www.aprelium.com/

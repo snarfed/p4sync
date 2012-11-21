@@ -1,0 +1,45 @@
+xmms
+--
+great plugin architecture
+have to export plugin code as ANSI C :/
+works great w/null output plugin, but real output plugins are way too coarse
+http://xmms.org/
+
+rhythmbox
+--
+gnome/gstreamer-based
+annoying to use
+plugins are in c#/mono! (ipc is with dbus)
+http://www.rhythmbox.org/
+
+mpd
+--
+music player platform - player is headless, ui clients drive it over network!
+only supports song position at *second* granularity. would need to patch mpd
+core to change this. boo.
+http://www.musicpd.org/
+
+zinf
+--
+evidently has plugins, but *no* docs on writing them
+use ui/cmdline/* as example
+done, but it segfaults on startup; even built with debugging symbols, the crash
+is in unknown code. :/
+http://www.zinf.org/
+
+noatun
+--
+mature, kde-based, well-documented plugin api
+can't install on rh9!
+http://noatun.kde.org/
+
+amarok
+--
+modern, itunes-like, kde-based
+can't install on rh9!
+http://amarok.kde.org/
+
+muine
+--
+uses mono, gtk#, gstreamer
+no chance of getting it installed on rh9 :P

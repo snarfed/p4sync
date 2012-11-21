@@ -28,7 +28,7 @@
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include "cxxtest/TestSuite.h"
+#include "cxxtest/cxxtest/TestSuite.h"
 #include "server.h"
 #include "settings.h"
 #include "libwebserver/web_server.h"

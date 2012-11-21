@@ -9,7 +9,7 @@
  * A simple smoke test for libwebserver. Definitely *not* comprehensive.
  */
 
-#include "cxxtest/TestSuite.h"
+#include "cxxtest/cxxtest/TestSuite.h"
 #include "libwebserver/web_server.h"
 
 #include <stdio.h>

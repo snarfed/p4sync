@@ -1,3 +1,6 @@
 [submodule "libmsntp"]
 	path = libmsntp
 	url = git@github.com:snarfed/libmsntp.git
+[submodule "cxxtest"]
+	path = cxxtest
+	url = git@github.com:CxxTest/cxxtest.git

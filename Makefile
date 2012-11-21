@@ -51,7 +51,7 @@ mpc/mpc : $(OBJS) all $(LIBS)
 
 # Unit tests
 tests.generated.cpp : $(TESTS) $(HDRS)
-	./cxxtest/cxxtestgen.pl --runner=StdioPrinter -o $@ $(TESTS)
+	./cxxtest/cxxtest/cxxtestgen.pl --runner=StdioPrinter -o $@ $(TESTS)
 
 server_stub: all $(OBJS) server_stub.o
 	$(CPP) $(CPPFLAGS) -o $@ $(OBJS) $(LIBS) server_stub.o

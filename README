@@ -2,6 +2,7 @@
 
 p4sync
 http://snarfed.org/synchronizing_mp3_playback
+License: This project is placed in the public domain.
 
 p4sync syncs mp3 players on multiple computers so that they are playing the same song at the same time. p4sync will be distributed as a plugin for many popular mp3 and media players - we initially plan to support Winamp and XMMS.
 
